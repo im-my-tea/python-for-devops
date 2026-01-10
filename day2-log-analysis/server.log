@@ -1,0 +1,7 @@
+2024-01-15 10:00:01 - INFO - User admin logged in from 192.168.1.10
+2024-01-15 10:05:23 - ERROR - Connection refused from 203.0.113.5
+2024-01-15 10:05:24 - ERROR - Invalid password attempt from 203.0.113.5
+2024-01-15 10:05:25 - ERROR - Invalid password attempt from 203.0.113.5
+2024-01-15 10:10:00 - INFO - System backup started
+2024-01-15 10:12:45 - WARNING - High memory usage detected on pid:455
+2024-01-15 10:15:00 - ERROR - Root access attempted from 45.33.22.11

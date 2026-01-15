@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  # Service 1: Our Python Code
+  app:
+    build: .  # Build from the Dockerfile in current folder
+    environment:
+      - REDIS_HOST=my-redis-db # This name MUST match the service name below
+    depends_on:
+      - my-redis-db
+
+  # Service 2: The Database
+  my-redis-db:
+    image: "redis:alpine" # Download official pre-made image

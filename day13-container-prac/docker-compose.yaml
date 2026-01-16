@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # The Writer
+  generator:
+    build: ./generator
+    volumes:
+      - shared-volume:/shared_data
+
+  # The Uploader
+  archiver:
+    build: ./archiver
+    volumes:
+      - shared-volume:/shared_data
+    # NEW: Pass AWS Credentials explicitly so Boto3 finds them
+    env_file:
+      - .env
+
+volumes:
+  shared-volume:

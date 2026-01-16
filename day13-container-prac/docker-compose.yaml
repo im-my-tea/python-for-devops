@@ -17,4 +17,4 @@ services:
       - .env
 
 volumes:
-  shared-volume:
+  shared-volume:/shared_data

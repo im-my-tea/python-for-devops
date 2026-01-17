@@ -3,18 +3,16 @@ name: Day 15 CD Pipeline
 on:
   push:
     paths:
-      - 'day15-cd/**' # Only run when we touch the Day 15 App
+      - 'day15-cd/**'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Get the Code
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    # 2. Configure AWS Credentials (using your Secrets)
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -22,16 +20,14 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: us-east-1
 
-    # 3. Login to ECR (This action handles the complex password logic for us)
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
 
-    # 4. Build and Push
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: devops-bootcamp  # MUST MATCH YOUR AWS REPO NAME
+        ECR_REPOSITORY: devops-bootcamp
         IMAGE_TAG: latest
       run: |
         cd day15-cd

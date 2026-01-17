@@ -1,0 +1,33 @@
+name: Day 14 CI Pipeline
+
+on:
+  push:
+    paths:
+      - 'day14-ci-cd/**'  # Only run if we change files in this folder
+
+jobs:
+  test-code:
+    runs-on: ubuntu-latest  # Use a Linux server provided by GitHub
+
+    steps:
+      # 1. Download our code to the server
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # 2. Install Python 3.9
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      # 3. Install dependencies
+      - name: Install Libraries
+        run: |
+          cd day14-ci-cd
+          pip install -r requirements.txt
+
+      # 4. Run the Unit Test
+      - name: Run Tests
+        run: |
+          cd day14-ci-cd
+          python3 test_main.py

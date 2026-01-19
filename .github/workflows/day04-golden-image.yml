@@ -1,0 +1,41 @@
+name: Golden Image Factory
+
+on:
+  push:
+    paths:
+      - 'practice-week-hard-reset/day04-docker/**'
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install Dependencies
+        run: |
+          cd practice-week-hard-reset/day04-docker
+          pip install -r requirements.txt
+
+      - name: Run Unit Tests
+        run: |
+          cd practice-week-hard-reset/day04-docker
+          python3 test_main.py
+
+  build-image:
+    needs: quality-gate # This waits for tests to pass!
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Build Docker Image
+        run: |
+          cd practice-week-hard-reset/day04-docker
+          docker build -t golden-image .
+          echo "Image Built Successfully"
